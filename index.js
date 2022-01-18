@@ -80,9 +80,21 @@ app.get('/login/:username/:password', async(req, res) => {
     } else {
         res.json({ status: user.status });
     }
+});
 
+app.get('/addTask/:task', async(req, res) => {
+    var task = req.params.task;
+    var auth = 'mthobisisha1$4c359801$1$755fbb9f759b1730e649a8ff0a952aea7e1919bb'
+    await useDb.addTask(task, auth)
+    res.json({});
+});
 
-})
+app.get('/delete/:task', async(req, res) => {
+    var task = req.params.task;
+    var auth = 'mthobisisha1$4c359801$1$755fbb9f759b1730e649a8ff0a952aea7e1919bb'
+    useDb.deleteTask(task, auth);
+    res.json({});
+});
 
 
 const PORT = process.env.PORT || 5000;

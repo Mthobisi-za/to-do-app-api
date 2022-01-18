@@ -21,8 +21,28 @@ module.exports = function Database(pool, hash) {
             }
         }
     }
+    async function addTask(task, auth) {
+        if (task) {
+            var checker = (await pool.query('select * from tasks where task = $1 and auth = $2', [task, auth])).rows
+            console.log(checker);
+            if (checker.length == 0) {
+                await pool.query('insert into tasks(auth, task) values($1,$2)', [auth, task])
+            }
+        }
+    }
+    async function deleteTask(task, auth) {
+        if (task) {
+            var checker = (await pool.query('select * from tasks where task = $1 and auth = $2', [task, auth])).rows
+            console.log(checker);
+            if (checker.length == 1) {
+                await pool.query('delete from tasks where task = $1 and auth = $2', [task, auth]);
+            }
+        }
+    }
     return {
         registerUser,
-        getUser
+        getUser,
+        addTask,
+        deleteTask
     }
 }

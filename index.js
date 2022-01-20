@@ -75,8 +75,8 @@ app.get('/login/:username/:password', async(req, res) => {
             res.json({
                 user: user.data.auth_token
             });
-        }
-
+        } else
+            res.json({ status: 'failed' })
     } else {
         res.json({ status: user.status });
     }

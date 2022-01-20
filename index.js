@@ -73,7 +73,8 @@ app.get('/login/:username/:password', async(req, res) => {
         var condition = passwordHash.verify(password, hashedPasswords);
         if (condition) {
             res.json({
-                user: user.data.auth_token
+                user: user.data.auth_token,
+                status: 'passed'
             });
         } else
             res.json({ status: 'failed' })
